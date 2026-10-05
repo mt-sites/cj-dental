@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your Business Name</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=Plus+Jakarta+Sans:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+:root{--h2:#6a2f9a;--bg:#f1f3fa;--card:#fff;--ink:#121a38;--muted:#55608a;--line:#dde2f2;--gt:#8a6516;--hero:linear-gradient(160deg,#2b3a8c,#6a2f9a 60%,#b8892f);--gold:linear-gradient(135deg,#f6dc8e,#e1b34f 50%,#b8892f);--gink:#1a1405;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme]){--h2:#4a2478;--bg:#0a0f24;--card:#121a38;--ink:#f3efe4;--muted:#a4acc8;--line:#25305c;--gt:#e8c36a;--hero:linear-gradient(160deg,#1c2a6b,#4a2478 60%,#0a0f24)}}
+:root[data-theme="dark"]{--h2:#4a2478;--bg:#0a0f24;--card:#121a38;--ink:#f3efe4;--muted:#a4acc8;--line:#25305c;--gt:#e8c36a;--hero:linear-gradient(160deg,#1c2a6b,#4a2478 60%,#0a0f24)}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);font-size:clamp(16px,.55vw + 13px,19px)}
+body{margin:0;min-height:100vh;background:radial-gradient(130% 45% at 50% 0,var(--glow,transparent),transparent 70%),var(--bg);color:var(--ink);font:400 1rem/1.5 "Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:30rem;margin:0 auto;padding:0 0 2.5rem}
+.hero{position:relative;height:12rem;background:var(--hero);background-size:cover;background-position:center;border-radius:0 0 1.75rem 1.75rem}
+.mode{position:absolute;top:.75rem;right:.75rem;width:2.5rem;height:2.5rem;border-radius:50%;border:1px solid rgba(255,255,255,.4);background:rgba(0,0,0,.25);color:#fff;display:grid;place-items:center;cursor:pointer}
+svg.i{width:1.3rem;height:1.3rem;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.panel{margin:-2.5rem 1rem 0;background:var(--card);border:1px solid var(--line);border-radius:1.4rem;padding:1.25rem}
+.logo{width:5rem;height:5rem;border-radius:1.2rem;background:var(--gold);color:var(--gink);display:grid;place-items:center;font:800 1.7rem Sora,system-ui,sans-serif;margin-top:-3.9rem;border:4px solid var(--card);overflow:hidden}
+.logo img{width:100%;height:100%;object-fit:cover}
+h1{font:800 1.8rem/1.15 Sora,system-ui,sans-serif;margin:.75rem 0 .15rem}
+.tag{margin:0;color:var(--gt);font-weight:600}
+.desc{margin:.7rem 0 .9rem;color:var(--muted);max-width:60ch}
+.pill{display:inline-flex;align-items:center;gap:.5rem;padding:.3rem .8rem;border-radius:2rem;border:1px solid var(--line);font-weight:600;font-size:.9rem}
+.dot{width:.6rem;height:.6rem;border-radius:50%;background:#e5484d}
+.pill.open .dot{background:#22c55e}
+.promo{margin:1rem 1rem 0;padding:.8rem 1rem;border-radius:1rem;background:var(--gold);color:var(--gink);font-weight:600;text-align:center}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:1rem 1rem 0}
+.btn{display:flex;align-items:center;justify-content:center;gap:.55rem;min-height:3.25rem;padding:.6rem .9rem;border-radius:.95rem;border:1px solid var(--line);background:var(--card);color:var(--ink);font:600 1rem "Plus Jakarta Sans",system-ui,sans-serif;text-decoration:none;cursor:pointer}
+.btn:focus-visible,.tile:focus-visible,.mode:focus-visible,.soc a:focus-visible{outline:3px solid var(--gt);outline-offset:2px}
+.btn.gold{background:var(--gold);color:var(--gink);border-color:transparent}
+.btn.wide{width:100%}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin:.6rem 1rem 0}
+.tile{display:flex;flex-direction:column;align-items:center;gap:.4rem;padding:.8rem .3rem;border-radius:1rem;border:1px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none;font-weight:600;font-size:.9rem}
+.ico{width:2.7rem;height:2.7rem;border-radius:50%;display:grid;place-items:center;color:#fff}
+.sec{margin:1rem 1rem 0;background:var(--card);border:1px solid var(--line);border-radius:1.2rem;padding:1.1rem}
+.sec h2{font:800 1.15rem Sora,system-ui,sans-serif;margin:0 0 .5rem}
+.stars{display:flex;gap:.2rem;color:#e1b34f;margin-bottom:.6rem}
+.stars svg{width:1.6rem;height:1.6rem}
+.li{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid var(--line)}
+.li:first-of-type{border-top:0}
+.li b{color:var(--gt)}
+.li.today{font-weight:600;color:var(--gt)}
+.addr{margin:.2rem 0 .8rem;color:var(--muted)}
+.soc{display:flex;flex-wrap:wrap;justify-content:center;gap:.7rem;margin:1.2rem 1rem 0}
+.soc a{width:3.2rem;height:3.2rem;border-radius:50%;display:grid;place-items:center;color:#fff}
+.cols{display:grid;gap:1rem;margin:1rem 1rem 0;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
+.cols .sec{margin:0}
+@media (min-width:700px){main{max-width:44rem}.hero{height:15rem}.tiles{grid-template-columns:repeat(6,1fr)}}
+@media (min-width:1100px){main{max-width:52rem}}
+@media (max-height:480px) and (orientation:landscape){.hero{height:7.5rem}.panel{margin-top:-1.8rem}.logo{margin-top:-2.6rem;width:3.6rem;height:3.6rem}}
+@media (hover:hover){.btn:hover,.tile:hover,.soc a:hover{transform:translateY(-2px)}}
+dialog{width:calc(100% - 2rem);max-width:26rem;border:1px solid var(--line);border-radius:1.25rem;background:var(--card);color:var(--ink);padding:1.25rem}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+dialog h2{font:800 1.25rem Sora,system-ui,sans-serif;margin:0 0 .5rem}
+.qr{display:grid;place-items:center;background:#fff;border-radius:1rem;padding:1rem;margin:.5rem 0 .8rem}
+.crow{display:flex;justify-content:space-between;align-items:center;gap:.75rem;padding:.6rem 0;border-top:1px solid var(--line)}
+.crow span{overflow-wrap:anywhere}.crow small{display:block;color:var(--muted)}
+.crow button{flex:none;min-width:4.5rem;min-height:2.5rem;border-radius:.6rem;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:600 .9rem "Plus Jakarta Sans",sans-serif;cursor:pointer}
+.stack{display:grid;gap:.6rem;margin-top:.6rem}
+</style>
+</head>
+<body>
+<main>
+  <div class="hero" id="hero" role="img" aria-label="Header image">
+    <button class="mode" id="mode" type="button" aria-label="Switch light or dark"></button>
+  </div>
+  <section class="panel">
+    <div class="logo" id="logo"></div>
+    <h1 id="name"></h1>
+    <p class="tag" id="tagline"></p>
+    <p class="desc" id="desc"></p>
+    <span class="pill" id="status"><span class="dot"></span><span id="statusText"></span></span>
+  </section>
+  <div class="promo" id="promo" hidden></div>
+  <div class="duo">
+    <button class="btn gold" id="save" type="button"></button>
+    <button class="btn" id="share" type="button"></button>
+  </div>
+  <nav class="tiles" id="tiles" aria-label="Contact options"></nav>
+  <section class="sec" id="reviewSec">
+    <div class="stars" id="stars" aria-hidden="true"></div>
+    <h2>Enjoyed your visit?</h2>
+    <a class="btn gold wide" id="review" href="#" target="_blank" rel="noopener"></a>
+  </section>
+  <div class="cols">
+  <section class="sec" id="svcSec"><h2>Services</h2><div id="svc"></div></section>
+  <section class="sec"><h2>Opening hours</h2><div id="hours"></div></section>
+  <section class="sec">
+    <h2>Find us</h2>
+    <p class="addr" id="addr"></p>
+    <a class="btn wide" id="maps" href="#" target="_blank" rel="noopener"></a>
+  </section>
+  </div>
+  <div class="soc" id="soc"></div>
+</main>
+
+<dialog id="shareDlg" aria-labelledby="shT">
+  <h2 id="shT">Share this card</h2>
+  <div class="qr" id="qr"></div>
+  <div class="stack">
+    <button class="btn" id="copyLink" type="button">Copy link</button>
+    <button class="btn" id="nativeShare" type="button" hidden>Share with an app</button>
+    <button class="btn gold" id="closeShare" type="button">Done</button>
+  </div>
+</dialog>
+<dialog id="saveDlg" aria-labelledby="svT">
+  <h2 id="svT">Save contact</h2>
+  <div id="rows"></div>
+  <div class="stack"><button class="btn gold" id="closeSave" type="button">Done</button></div>
+</dialog>
+
+<script>
+/* ===== EDIT THIS BLOCK ONLY ===== */
+const CONFIG = {
+  name: "Your Business Name",
+  tagline: "What you do, in a few words",
+  description: "One or two short sentences about your establishment and what makes it special.",
+  phone: "+639171234567",
+  whatsapp: "+639171234567",
+  viber: "+639171234567",
+  email: "hello@example.com",
+  messenger: "yourpage",
+  address: "Street, Barangay, Town, Province",
+  mapsQuery: "Your Business Name, Town, Province",
+  mapsLink: "",
+  reviewLink: "https://g.page/r/YOUR_CODE/review",
+  promo: "Show this card for a special treat on your next visit.",
+  timezone: "Asia/Manila",
+  hours: ["09:00-18:00","09:00-18:00","09:00-18:00","09:00-18:00","09:00-18:00","10:00-16:00",""], // Monday to Sunday, "" = closed
+  services: [{n:"Service one", p:"₱150"}, {n:"Service two", p:"₱300"}, {n:"Service three", p:"₱500"}],
+  shareUrl: "",                    // leave "" to use this page's own link
+  headerImage: "",                 // optional data: URI
+  logoImage: "",                   // optional data: URI
+  theme: "auto",                   // auto follows the phone, or dark / light
+  social: { facebook: "yourpage", instagram: "yourhandle", tiktok: "", youtube: "", website: "" }
+};
+/* ================================ */
+const $ = id => document.getElementById(id);
+const IC = {
+  phone:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>',
+  sms:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  wa:'<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/>',
+  viber:'<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/><path d="M15 5a5 5 0 0 1 4 4M15 1a9 9 0 0 1 8 8"/>',
+  mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/>',
+  msgr:'<path d="M12 3C6.9 3 3 6.800 3 11.500c0 2.600 1.200 4.900 3.100 6.400V21l3-1.700c.9.300 1.900.400 2.900.400 5.100 0 9-3.800 9-8.200S17.100 3 12 3z"/><path d="m7.500 13.500 3.200-3.400 2 2 3.300-2.600"/>',
+  user:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
+  share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.600 13.500 6.800 4M15.400 6.500l-6.800 4"/>',
+  pin:'<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M2 12h2M20 12h2M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/>',
+  moon:'<path d="M21 12.800A9 9 0 1 1 11.200 3a7 7 0 0 0 9.800 9.800z"/>',
+  fb:'<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>',
+  ig:'<rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.500 6.500h.01"/>',
+  tt:'<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>',
+  yt:'<path d="M2.500 17a24.100 24.100 0 0 1 0-10 2 2 0 0 1 1.400-1.400 49.600 49.600 0 0 1 16.200 0A2 2 0 0 1 21.500 7a24.100 24.100 0 0 1 0 10 2 2 0 0 1-1.400 1.400 49.600 49.600 0 0 1-16.200 0A2 2 0 0 1 2.500 17"/><path d="m10 15 5-3-5-3z"/>',
+  web:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.300 15.300 0 0 1 4 10 15.300 15.300 0 0 1-4 10 15.300 15.300 0 0 1-4-10 15.300 15.300 0 0 1 4-10z"/>'
+};
+const svg = (k, extra) => '<svg class="i" viewBox="0 0 24 24" aria-hidden="true"' + (extra || "") + '>' + IC[k] + '</svg>';
+const lbl = (k, t) => svg(k) + t;
+const digits = v => (v || "").replace(/\D/g, "");
+
+document.title = CONFIG.name;
+$("name").textContent = CONFIG.name;
+$("tagline").textContent = CONFIG.tagline;
+$("desc").textContent = CONFIG.description;
+$("addr").textContent = CONFIG.address;
+if (CONFIG.headerImage) $("hero").style.backgroundImage = "url('" + CONFIG.headerImage + "')";
+if (CONFIG.logoImage) { const im = document.createElement("img"); im.src = CONFIG.logoImage; im.alt = ""; $("logo").appendChild(im); }
+else $("logo").textContent = CONFIG.name.split(/\s+/).slice(0,2).map(w => w[0]).join("").toUpperCase();
+if (CONFIG.promo) { $("promo").textContent = CONFIG.promo; $("promo").hidden = false; }
+
+$("save").innerHTML = lbl("user", "Save contact");
+$("share").innerHTML = lbl("share", "Share card");
+$("maps").innerHTML = lbl("pin", "Open in Google Maps");
+$("maps").href = CONFIG.mapsLink || "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(CONFIG.mapsQuery);
+
+/* contact tiles */
+const tiles = [
+  ["Call", CONFIG.phone && "tel:" + CONFIG.phone, "#2563eb", "phone"],
+  ["Text", CONFIG.phone && "sms:" + CONFIG.phone, "#db2777", "sms"],
+  ["WhatsApp", CONFIG.whatsapp && "https://wa.me/" + digits(CONFIG.whatsapp), "#16a34a", "wa"],
+  ["Viber", CONFIG.viber && "viber://chat?number=" + encodeURIComponent("+" + digits(CONFIG.viber)), "#7360f2", "viber"],
+  ["Email", CONFIG.email && "mailto:" + CONFIG.email, "#7c3aed", "mail"],
+  ["Messenger", CONFIG.messenger && "https://m.me/" + encodeURIComponent(CONFIG.messenger), "#0e7490", "msgr"]
+];
+tiles.forEach(([t, href, color, ic]) => {
+  if (!href) return;
+  const a = document.createElement("a"); a.className = "tile"; a.href = href;
+  if (href.indexOf("http") === 0) { a.target = "_blank"; a.rel = "noopener"; }
+  a.innerHTML = '<span class="ico" style="background:' + color + '">' + svg(ic) + '</span>' + t;
+  $("tiles").appendChild(a);
+});
+
+/* review */
+const star = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.100 6.300 6.900 1-5 4.900 1.200 6.800L12 17.800 5.800 21l1.200-6.800-5-4.900 6.900-1z"/></svg>';
+$("stars").innerHTML = star.repeat(5);
+$("review").innerHTML = lbl("sms", "Leave a Google review");
+if (CONFIG.reviewLink) $("review").href = CONFIG.reviewLink; else $("reviewSec").hidden = true;
+
+/* services */
+if (CONFIG.services && CONFIG.services.length) {
+  CONFIG.services.forEach(s => {
+    const r = document.createElement("div"); r.className = "li";
+    const a = document.createElement("span"); a.textContent = s.n;
+    const b = document.createElement("b"); b.textContent = s.p || "";
+    r.appendChild(a); r.appendChild(b); $("svc").appendChild(r);
+  });
+} else $("svcSec").hidden = true;
+
+/* hours + open now */
+const DAYS = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
+const mins = t => { const p = t.split(":").map(Number); return p[0] * 60 + p[1]; };
+const fmt = t => { let p = t.split(":").map(Number), h = p[0], ap = h >= 12 ? "PM" : "AM"; h = h % 12 || 12; return h + ":" + String(p[1]).padStart(2, "0") + " " + ap; };
+function nowIn(tz) {
+  try {
+    const parts = new Intl.DateTimeFormat("en-US", {timeZone: tz, weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false}).formatToParts(new Date());
+    const g = t => parts.find(x => x.type === t).value;
+    return {d: ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].indexOf(g("weekday")), m: (Number(g("hour")) % 24) * 60 + Number(g("minute"))};
+  } catch (e) { const n = new Date(); return {d: n.getDay(), m: n.getHours() * 60 + n.getMinutes()}; }
+}
+const now = nowIn(CONFIG.timezone), idx = (now.d + 6) % 7, today = CONFIG.hours[idx] || "";
+let isOpen = false, st = "Closed today";
+if (today) { const r = today.split("-"); isOpen = now.m >= mins(r[0]) && now.m < mins(r[1]); st = isOpen ? "Open now, until " + fmt(r[1]) : "Closed now"; }
+$("statusText").textContent = st;
+$("status").classList.toggle("open", isOpen);
+DAYS.forEach((d, i) => {
+  const h = CONFIG.hours[i] || "", r = document.createElement("div");
+  r.className = "li" + (i === idx ? " today" : "");
+  const a = document.createElement("span"); a.textContent = d;
+  const b = document.createElement("span"); b.textContent = h ? h.split("-").map(fmt).join(" to ") : "Closed";
+  r.appendChild(a); r.appendChild(b); $("hours").appendChild(r);
+});
+
+/* socials */
+const SOC = {
+  facebook:["Facebook","#1877f2","https://facebook.com/","fb"],
+  instagram:["Instagram","linear-gradient(45deg,#f9a825,#e1306c 55%,#833ab4)","https://instagram.com/","ig"],
+  tiktok:["TikTok","#111","https://tiktok.com/@","tt"],
+  youtube:["YouTube","#e62117","https://youtube.com/@","yt"],
+  website:["Website","#7c3aed","https://","web"]
+};
+Object.keys(SOC).forEach(k => {
+  const v = ((CONFIG.social || {})[k] || "").trim(); if (!v) return;
+  const d = SOC[k], a = document.createElement("a");
+  a.href = /^https?:\/\//i.test(v) ? v : d[2] + v.replace(/^@/, "");
+  a.target = "_blank"; a.rel = "noopener"; a.style.background = d[1];
+  a.setAttribute("aria-label", d[0]); a.title = d[0]; a.innerHTML = svg(d[3]);
+  $("soc").appendChild(a);
+});
+
+/* save contact sheet */
+[["Name", CONFIG.name], ["Phone", CONFIG.phone], ["Email", CONFIG.email], ["Address", CONFIG.address]].forEach(([l, v]) => {
+  const r = document.createElement("div"); r.className = "crow";
+  const s = document.createElement("span"), sm = document.createElement("small");
+  sm.textContent = l; s.appendChild(sm); s.appendChild(document.createTextNode(v));
+  const b = document.createElement("button"); b.type = "button"; b.textContent = "Copy";
+  b.onclick = async () => { try { await navigator.clipboard.writeText(v); b.textContent = "Copied"; } catch (e) { b.textContent = "Press and hold"; } setTimeout(() => b.textContent = "Copy", 1500); };
+  r.appendChild(s); r.appendChild(b); $("rows").appendChild(r);
+});
+$("save").onclick = () => $("saveDlg").showModal();
+$("closeSave").onclick = () => $("saveDlg").close();
+
+/* share + QR */
+const link = CONFIG.shareUrl || location.href;
+let qrDone = false;
+$("share").onclick = () => {
+  $("shareDlg").showModal();
+  if (!qrDone) {
+    qrDone = true;
+    try { new QRCode($("qr"), {text: link, width: 192, height: 192, colorDark: "#121a38", colorLight: "#ffffff"}); }
+    catch (e) { $("qr").hidden = true; }
+  }
+};
+$("closeShare").onclick = () => $("shareDlg").close();
+$("copyLink").onclick = async () => { const b = $("copyLink"); try { await navigator.clipboard.writeText(link); b.textContent = "Link copied"; } catch (e) { b.textContent = "Copy not allowed here"; } setTimeout(() => b.textContent = "Copy link", 1800); };
+if (navigator.share) { $("nativeShare").hidden = false; $("nativeShare").onclick = () => navigator.share({title: CONFIG.name, url: link}).catch(() => {}); }
+
+let tintRGB = null;
+const hexRGB = h => { h = (h || "").trim(); if (/^#[0-9a-f]{3}$/i.test(h)) h = "#" + h[1] + h[1] + h[2] + h[2] + h[3] + h[3]; const m = /^#([0-9a-f]{6})$/i.exec(h); return m ? [0, 2, 4].map(i => parseInt(m[1].substr(i, 2), 16)) : null; };
+function hueSat(c) { const r = c[0] / 255, g = c[1] / 255, b = c[2] / 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), d = mx - mn, l = (mx + mn) / 2; let h = 0; if (d) { h = mx === r ? ((g - b) / d) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h = Math.round(h * 60); if (h < 0) h += 360; } return [h, d ? Math.round(d / (1 - Math.abs(2 * l - 1)) * 100) : 0]; }
+function applyTint() {
+  const cs = getComputedStyle(document.documentElement);
+  const c = tintRGB || hexRGB(cs.getPropertyValue("--h2")); if (!c) return;
+  const k = hexRGB(cs.getPropertyValue("--card")), dark = k ? (0.2126 * k[0] + 0.7152 * k[1] + 0.0722 * k[2]) < 110 : false;
+  const t = hueSat(c), h = t[0], s = Math.min(Math.max(t[1], 35), 70);
+  document.documentElement.style.setProperty("--bg", "hsl(" + h + " " + Math.min(s, dark ? 45 : 60) + "% " + (dark ? 9 : 95) + "%)");
+  document.documentElement.style.setProperty("--glow", "hsl(" + h + " " + s + "% " + (dark ? 38 : 62) + "% / " + (dark ? 0.5 : 0.35) + ")");
+}
+if (CONFIG.headerImage) {
+  const im = new Image();
+  im.onload = () => { try {
+    const cv = document.createElement("canvas"); cv.width = cv.height = 24;
+    const cx = cv.getContext("2d"); cx.drawImage(im, 0, 0, 24, 24);
+    const d = cx.getImageData(0, 0, 24, 24).data; let r = 0, g = 0, b = 0, w = 0;
+    for (let i = 0; i < d.length; i += 4) { const wt = 0.1 + (Math.max(d[i], d[i+1], d[i+2]) - Math.min(d[i], d[i+1], d[i+2])) / 255; r += d[i] * wt; g += d[i+1] * wt; b += d[i+2] * wt; w += wt; }
+    tintRGB = [r / w, g / w, b / w]; applyTint();
+  } catch (e) {} };
+  im.src = CONFIG.headerImage;
+}
+/* light and dark switch */
+const root = document.documentElement;
+function setMode(t, save) {
+  if (t === "auto") root.removeAttribute("data-theme"); else root.setAttribute("data-theme", t === "light" ? "light" : "dark");
+  const dark = t === "auto" ? matchMedia("(prefers-color-scheme: dark)").matches : t !== "light";
+  $("mode").innerHTML = svg(dark ? "moon" : "sun");
+  $("mode").dataset.m = dark ? "dark" : "light";
+  applyTint();
+  if (save) { try { localStorage.setItem("premium-mode", $("mode").dataset.m); } catch (e) {} }
+}
+$("mode").onclick = () => setMode($("mode").dataset.m === "dark" ? "light" : "dark", true);
+let sm = null; try { sm = localStorage.getItem("premium-mode"); } catch (e) {}
+setMode(sm || CONFIG.theme, false);
+</script>
+</body>
+</html>
