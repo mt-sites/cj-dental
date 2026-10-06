@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>CJ Dental</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0a0a0a"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><title>CJ Dental</title>
 <style>
 :root{--gold:#c9a64e;--lt:#f6e99a;--ink:#0a0a0a;--lbg:#f6f4ee;--ltx:#111;--lmut:#555;--lcard:#fff;--line:#ddd}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--lbg:#141414;--ltx:#f1f1f1;--lmut:#aaa;--lcard:#1c1c1c;--line:#333}}
@@ -73,7 +73,55 @@ html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,svg{max-width:100%
 .rv figcaption{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:center;font-size:13px!important;letter-spacing:0!important;color:var(--ltx)!important;margin-top:auto!important}.rv small{color:var(--lmut)}.gb{margin-left:auto;font-size:11px;font-weight:700;color:#4285f4}
 .st{color:#f5b301;letter-spacing:2px;font-size:16px}.rsum{display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap}.rsum b{font-size:44px;letter-spacing:-2px}.rsum small{color:var(--lmut)}
 #reviews .btns{margin-top:22px}
-a.gb{text-decoration:none}</style></head><body>
+a.gb{text-decoration:none}/* ===== Mobile-first polish, motion & micro-interactions ===== */
+html{scroll-padding-top:76px}
+body{font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a,button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+h1,h2,h3{text-wrap:balance}p,.lead{text-wrap:pretty}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+header{z-index:40;transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s,box-shadow .3s}
+header.hid{transform:translateY(-100%)}header.sc{background:rgba(10,10,10,.92);box-shadow:0 4px 18px #0006}
+header button{min-width:44px;min-height:44px}
+@media(max-width:899px){header{padding-left:max(18px,env(safe-area-inset-left));padding-right:max(18px,env(safe-area-inset-right))}
+#menu{display:flex;padding-top:calc(90px + env(safe-area-inset-top,0px));opacity:0;visibility:hidden;transform:translateY(-12px);transition:opacity .3s,transform .3s,visibility .3s}
+#menu.on{opacity:1;visibility:visible;transform:none}
+#menu a{opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s,color .2s}
+#menu.on a{opacity:1;transform:none;transition-delay:calc(var(--i) * 60ms + 120ms)}}
+@media(min-width:900px){#menu{z-index:45}}
+#prog{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),var(--lt));transform-origin:0 50%;transform:scaleX(0);z-index:60;pointer-events:none}
+.hero{position:relative;isolation:isolate;overflow:hidden;background:#000;min-height:100vh;min-height:100svh;padding-top:calc(96px + env(safe-area-inset-top,0px));padding-bottom:44px}
+.hero::before{content:"";position:absolute;inset:-4%;background:var(--hero-img) center/cover;z-index:-2;animation:kb 22s ease-in-out infinite alternate;will-change:transform}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#000b,#000e);z-index:-1}
+@keyframes kb{to{transform:scale(1.08) translate3d(-1.5%,-1%,0)}}
+h1{font-size:clamp(34px,10.4vw,64px);line-height:1.04;letter-spacing:-.035em;margin:16px 0 14px}h1 span{margin-top:6px}
+.hero p{font-size:clamp(15px,4vw,17px);line-height:1.65}
+h2{font-size:clamp(28px,7.6vw,46px);line-height:1.08;letter-spacing:-.03em;margin-bottom:14px}
+.lead{font-size:clamp(15px,3.9vw,17px);line-height:1.7}
+.lab,.eye{font-size:11px;letter-spacing:.22em;font-weight:600}
+section{padding:clamp(52px,13vw,92px) clamp(18px,5.5vw,28px)}
+.pill,.cb{min-height:48px;justify-content:center}.btns{gap:12px}.btns .pill{flex:1 1 150px}
+.qa{gap:12px}.qa a,.qa button{min-height:84px;justify-content:center;border-radius:18px}
+.ah{min-height:64px}.dock a{min-height:48px;display:flex;align-items:center;justify-content:center}
+.card{border-radius:24px;padding:24px 20px}
+.pill,.cb,.qa a,.qa button,.dock a,.s,.ah{transition:transform .18s cubic-bezier(.2,.7,.2,1),box-shadow .2s,background .2s,filter .2s}
+.pill:active,.cb:active,.qa a:active,.qa button:active,.dock a:active,.s:active{transform:scale(.96)}.ah:active{transform:scale(.99)}
+@media(hover:hover){.pill:hover,.cb:hover,.qa a:hover,.qa button:hover{transform:translateY(-2px)}.s:hover{transform:translateY(-3px)}.ac:hover{border-color:var(--gold)}}
+.ac{transition:border-color .3s,box-shadow .3s}.ac.on{border-color:var(--gold);box-shadow:0 6px 22px #0000001a}
+.ah u{transition:transform .35s cubic-bezier(.2,.7,.2,1),background .3s,color .3s}.ac.on .ah u{transform:rotate(45deg);background:var(--gold);color:#000;border-color:var(--gold)}
+.ac .ab{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s cubic-bezier(.2,.7,.2,1);padding:0 16px 0 48px}
+.ac.on .ab{display:grid;grid-template-rows:1fr}
+.abi{overflow:hidden;min-height:0;visibility:hidden;transition:visibility .38s}.ac.on .abi{visibility:visible}.abi>a{margin-bottom:18px}
+.dock{transition:transform .4s cubic-bezier(.2,.7,.2,1),opacity .3s;animation:dockin .7s 2s backwards}
+@keyframes dockin{from{transform:translateY(140%);opacity:0}}
+.dock.hide{transform:translateY(160%);opacity:0;pointer-events:none}
+.dock a:first-child{animation:pls 3.6s ease-in-out 4s infinite}
+@keyframes pls{0%,78%,100%{outline:0 solid #c9a64e00;outline-offset:0}90%{outline:6px solid #c9a64e55;outline-offset:2px}}
+.rvl.rvl{opacity:0;transform:translate3d(0,18px,0);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0ms)}
+.rvl.in{opacity:1;transform:none}
+.sl{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+@media(max-width:699px){.sl{margin-inline:calc(-1 * clamp(18px,5.5vw,28px));padding-inline:clamp(18px,5.5vw,28px);scroll-padding-inline:clamp(18px,5.5vw,28px);scrollbar-width:none;gap:12px}.sl::-webkit-scrollbar{display:none}}
+@media(prefers-reduced-motion:reduce){.hero::before,.dock,.dock a:first-child{animation:none!important}.ac .ab,.abi{transition:none}}
+</style></head><body>
 <script>
 /* =====================================================================
    EDIT HERE  -  CONFIG  (everything on the website is controlled below)
@@ -247,8 +295,8 @@ const CONFIG = {
 /* ========================= END OF CONFIG ========================= */
 </script>
 <div id="splash"><div><img id="splashImg" alt=""></div></div>
-<header><span class="hb"><img id="hLogo" alt="CJ Dental logo"><b id="brand"></b></span><button id="mb" aria-label="Menu">☰</button></header>
-<nav id="menu"></nav>
+<header><span class="hb"><img id="hLogo" alt="CJ Dental logo"><b id="brand"></b></span><button id="mb" aria-label="Menu" aria-expanded="false">☰</button></header>
+<div id="prog"></div><nav id="menu"></nav>
 <main id="app"></main>
 <div class="dock" id="dock"></div><div id="toast"></div>
 <script>
@@ -281,7 +329,7 @@ const soc=k=>`<a class="s ${k}" data-k="${k}" aria-label="${BL(k)}"><svg viewBox
 const lab=(l,t)=>`<div class="lab">${T(l)}</div>`;
 const H=C.hero,K=C.contact,A=C.about,S=C.services,G=C.gallery,F=C.follow;
 const rows=[[K.phoneLabel,C.phone],C.email&&[K.emailLabel,C.email],C.address&&[K.addressLabel,C.address],[K.servicesLabel,C.specialties]].filter(Boolean).map(r=>`<div class="row"><small>${T(r[0])}</small>${T(r[1])}</div>`).join("");
-const gal=G.items.map((g,i)=>`<figure><img src="${esc(g.image||IMG.gallery[i]||"")}" alt="${T(g.caption)}"><figcaption>${T(g.caption)}</figcaption></figure>`).join("");
+const gal=G.items.map((g,i)=>`<figure><img loading="lazy" decoding="async" src="${esc(g.image||IMG.gallery[i]||"")}" alt="${T(g.caption)}"><figcaption>${T(g.caption)}</figcaption></figure>`).join("");
 const D=C.doctors;
 const AV='<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.600 8 8z"/></svg>';
 const docHTML=D.show?`<section id="doctors" style="padding-top:0">${lab(D.label)}<h2>${T(D.title)}</h2><p class="lead">${T(D.hint)}</p><div class="sl docs">${D.items.map(d=>`<figure class="doc">${d.photo?`<img class="pic" src="${esc(d.photo)}" alt="${T(d.name)}">`:`<div class="pic">${AV}</div>`}<b>${T(d.name)}</b><small>${T(d.role)}</small></figure>`).join("")}</div></section>`:"";
@@ -292,13 +340,13 @@ $("#app").innerHTML=`
 <div class="info">${H.facts.map(f=>`<div><small>${T(f.label)}</small><b>${T(f.value)}</b></div>`).join("")}</div></div>
 <section id="contact">${lab(K.label)}<h2>${T(K.title)}</h2><div class="card"><h3>${T(K.cardTitle)}</h3>${rows}<div class="qa">${K.buttons.map(qa).join("")}</div></div></section>
 <section id="about">${lab(A.label)}<h2>${T(A.title)}</h2><p class="lead">${T(A.text)}</p><div class="num">${A.stats.map(s=>`<div>${T(s.number)}<small>${T(s.label)}</small></div>`).join("")}</div></section>
-<section id="services" style="padding-top:0">${lab(S.label)}<h2>${T(S.title)}</h2><p class="lead" style="margin-bottom:22px">${T(S.hint)}</p><div class="accs">${S.items.map((s,i)=>`<div class="ac"><button class="ah"><i>${String(i+1).padStart(2,"0")}</i><b>${T(s.name)}</b><u>+</u></button><div class="ab"><p>${T(s.desc)}</p><a class="cb" data-k="call">📞 ${T(S.callButton)}</a></div></div>`).join("")}</div></section>
+<section id="services" style="padding-top:0">${lab(S.label)}<h2>${T(S.title)}</h2><p class="lead" style="margin-bottom:22px">${T(S.hint)}</p><div class="accs">${S.items.map((s,i)=>`<div class="ac"><button class="ah"><i>${String(i+1).padStart(2,"0")}</i><b>${T(s.name)}</b><u>+</u></button><div class="ab"><div class="abi"><p>${T(s.desc)}</p><a class="cb" data-k="call">📞 ${T(S.callButton)}</a></div></div></div>`).join("")}</div></section>
 ${docHTML}
 <section class="dark" id="results"><div class="in">${lab(G.label)}<h2>${T(G.title)}</h2><p class="lead">${T(G.hint)}</p><div class="sl">${gal}</div></div></section>
 ${C.google.show?`<section id="reviews">${lab(C.google.label)}<h2>${T(C.google.title)}</h2><div id="reviewsBody">${C.google.widgetId?`<div id="JFWebsiteWidget-${esc(C.google.widgetId)}"></div>`:""}<div class="btns"><a class="cb" data-k="reviews">${T(C.google.seeAllLabel)}</a><a class="cb" data-k="writeReview">${T(C.google.writeLabel)}</a></div></div></section>`:""}
 <section id="follow">${lab(F.label)}<h2>${T(F.title)}</h2><div class="socs">${F.buttons.map(soc).join("")}</div></section>
 <footer>${T(C.footerText)}</footer>`;
-$("#menu").innerHTML=C.menu.map(m=>`<a href="#${esc(m.target)}">${T(m.label)}</a>`).join("");
+$("#menu").innerHTML=C.menu.map((m,i)=>`<a style="--i:${i}" href="#${esc(m.target)}">${T(m.label)}</a>`).join("");
 $("#brand").textContent=C.businessName.toUpperCase();
 $("#dock").innerHTML=C.dock.map((k,i)=>`<a data-k="${k}">${i===0&&k==="call"?"📞 "+BL("dockCall"):BL(k)}</a>`).join("");
 $("#splashImg").src=logo;$("#hLogo").src=logo;const hl=$("#heroLogo");if(hl)hl.src=logo;if(!C.showSplash)$("#splash").remove();
@@ -307,11 +355,30 @@ const wire=root=>root.querySelectorAll("[data-k]").forEach(a=>{const u=LINKS[a.d
  if(u){a.href=u;if(/^http/.test(u)){a.target="_blank";a.rel="noopener"}}
  else if(C.hideEmptyButtons)a.remove();else a.addEventListener("click",e=>{e.preventDefault();toast("This link isn't set up yet")})});wire(document);
 if(C.google.show&&C.google.widgetId){const js=document.createElement("script");js.src="https://www.jotform.com/website-widgets/embed/"+C.google.widgetId;js.defer=true;document.body.appendChild(js)}
-const m=$("#menu");$("#mb").onclick=()=>m.classList.toggle("on");m.querySelectorAll("a").forEach(a=>a.onclick=()=>m.classList.remove("on"));
-document.querySelectorAll(".ah").forEach(b=>b.onclick=()=>{const c=b.parentElement;c.classList.toggle("on");b.querySelector("u").textContent=c.classList.contains("on")?"−":"+"});
+const m=$("#menu"),mb=$("#mb");const setMenu=o=>{m.classList.toggle("on",o);mb.textContent=o?"✕":"☰";mb.setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":""};mb.onclick=()=>setMenu(!m.classList.contains("on"));m.querySelectorAll("a").forEach(a=>a.onclick=()=>setMenu(false));
+document.querySelectorAll(".ah").forEach(b=>b.onclick=()=>{const c=b.parentElement;c.classList.toggle("on");b.setAttribute("aria-expanded",c.classList.contains("on"))});
 const vcf=()=>["BEGIN:VCARD","VERSION:3.0","FN:"+C.businessName,"ORG:"+C.fullName,"TEL;TYPE=CELL,VOICE:"+intl,C.email&&"EMAIL:"+C.email,C.address&&"ADR;TYPE=WORK:;;"+C.address+";;;;",C.website&&"URL:"+C.website,"END:VCARD"].filter(Boolean).join("\r\n");
 const sv=$("#save");if(sv)sv.addEventListener("click",async()=>{
  try{const d=await claude.use("downloads");if(d){await d.save({filename:C.businessName.replace(/\W+/g,"-")+".vcf",data:vcf()});return}}catch(e){if(e&&e.code==="declined")return}
  try{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([vcf()],{type:"text/vcard"}));a.download=C.businessName.replace(/\W+/g,"-")+".vcf";document.body.appendChild(a);a.click();a.remove();toast("Contact file ready")}catch(e){toast("Saving isn't available here")}});
+
+/* ===== Motion & micro-interactions (lightweight: transforms/opacity only) ===== */
+(()=>{
+const rm=matchMedia("(prefers-reduced-motion: reduce)").matches,IO="IntersectionObserver"in window;
+const base=C.showSplash?1500:100;
+if(!rm&&IO){
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const el=e.target;io.unobserve(el);el.classList.add("in");setTimeout(()=>{el.classList.remove("rvl","in");el.style.removeProperty("--d")},1000+(parseInt(el.style.getPropertyValue("--d"))||0))}),{rootMargin:"0px 0px -8% 0px",threshold:.06});
+ document.querySelectorAll(".hero>*,section>*:not(.accs),section .in>*,.accs>.ac,.socs>*").forEach(el=>{const sib=[...el.parentElement.children].indexOf(el),hero=el.parentElement.classList.contains("hero");
+  el.classList.add("rvl");el.style.setProperty("--d",(hero?base+sib*90:Math.min(sib,6)*70)+"ms");io.observe(el)});
+ document.querySelectorAll(".num>div").forEach(d=>{const tn=d.firstChild,n=parseInt(tn.textContent);if(!n)return;tn.textContent="0";
+  const o=new IntersectionObserver(([e])=>{if(!e.isIntersecting)return;o.disconnect();const t0=performance.now(),f=t=>{const p=Math.min(1,(t-t0)/900);tn.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)});o.observe(d)});
+}
+const hd=document.querySelector("header"),pg=document.getElementById("prog"),mn=document.getElementById("menu");let ly=0,tk=false;
+const onS=()=>{const y=scrollY,mx=document.documentElement.scrollHeight-innerHeight;pg.style.transform="scaleX("+(mx>0?Math.min(1,y/mx):0)+")";hd.classList.toggle("sc",y>12);
+ if(!mn.classList.contains("on")){if(y>ly+4&&y>140)hd.classList.add("hid");else if(y<ly-4||y<=140)hd.classList.remove("hid")}ly=y;tk=false};
+addEventListener("scroll",()=>{if(!tk){tk=true;requestAnimationFrame(onS)}},{passive:true});onS();
+const dock=document.getElementById("dock"),vis=new Set();
+if(IO){const d2=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target.id):vis.delete(e.target.id));dock.classList.toggle("hide",vis.size>0)},{threshold:.35});["contact","follow"].forEach(id=>{const el=document.getElementById(id);el&&d2.observe(el)})}
+})();
 </script>
 </body></html>
