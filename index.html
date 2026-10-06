@@ -28,7 +28,7 @@ h2{font-size:clamp(32px,8vw,52px);line-height:1.05;letter-spacing:-1.5px;margin:
 .num{display:flex;gap:30px;margin-top:30px;flex-wrap:wrap}.num div{font-size:54px;font-weight:800;letter-spacing:-2px;color:var(--gold)}.num small{display:block;font-size:10px;letter-spacing:3px;color:var(--lmut);font-weight:500}
 .ac{border:1px solid var(--line);background:var(--lcard);border-radius:12px;margin-bottom:10px}
 .ah{all:unset;box-sizing:border-box;width:100%;display:flex;align-items:center;gap:16px;padding:20px 16px;cursor:pointer}.ah i{font-size:11px;color:var(--lmut);font-style:normal}.ah b{flex:1;font-size:17px}.ah u{text-decoration:none;border:1px solid var(--line);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center}
-.ac p{display:none;margin:0;padding:0 16px 18px 48px;color:var(--lmut);font-size:14px}.ac.on p{display:block}
+.ac .ab{display:none;padding:0 16px 18px 48px}.ac.on .ab{display:block}.ac p{margin:0 0 12px;color:var(--lmut);font-size:14px}
 .dark{background:#000;color:#fff;max-width:none}.dark .in{max-width:900px;margin:auto}.dark .lead,.dark .lab{color:#aaa}
 .sl{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px;margin-top:24px}.sl figure{margin:0;flex:0 0 78%;max-width:340px;scroll-snap-align:start}.sl img{width:100%;border-radius:10px;display:block}.sl figcaption{font-size:10px;letter-spacing:2px;color:#aaa;margin-top:8px}
 .card{background:#000;color:#fff;border-radius:22px;padding:26px 22px}.card h3{margin:0 0 18px;font-size:24px}
@@ -65,7 +65,15 @@ html{-webkit-text-size-adjust:100%}body{overflow-x:hidden}img,svg{max-width:100%
 @media(max-width:360px){section{padding:56px 16px}.info{grid-template-columns:1fr 1fr}.pill{padding:12px 16px;font-size:13px}.qa{grid-template-columns:repeat(2,1fr)}}
 @media(max-height:480px) and (orientation:landscape){.hero{min-height:auto;padding-top:90px}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01s!important;scroll-behavior:auto!important}}
-.hb{display:flex;align-items:center;gap:10px}.hb img{width:38px;height:38px;border-radius:50%}.hl{width:96px;height:96px;border-radius:50%;margin-bottom:18px;box-shadow:0 0 0 2px var(--gold)}</style></head><body>
+.hb{display:flex;align-items:center;gap:10px}.hb img{width:38px;height:38px;border-radius:50%}.hl{width:96px;height:96px;border-radius:50%;margin-bottom:18px;box-shadow:0 0 0 2px var(--gold)}.cb{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:30px;background:var(--ink);color:var(--gold);border:1px solid var(--gold);font:600 13px Inter,Segoe UI,Arial,sans-serif;text-decoration:none;cursor:pointer}
+.sl.docs figure{flex:0 0 58%;max-width:220px}.sl.rvs figure{flex:0 0 82%;max-width:340px}.sl.docs,.sl.rvs{overflow-x:auto}
+.doc{text-align:center}.doc .pic{width:100%;aspect-ratio:4/5;border-radius:16px;object-fit:cover;background:#1a1a1a;display:flex;align-items:center;justify-content:center}.doc .pic svg{width:45%;opacity:.5;color:var(--gold)}
+.doc b{display:block;font-size:17px;margin-top:12px}.doc small{color:var(--lmut);font-size:13px}
+.rv{background:var(--lcard);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex!important;flex-direction:column;gap:10px}.rv p{margin:0;font-size:14px;line-height:1.6;color:var(--ltx)}
+.rv figcaption{display:flex;flex-wrap:wrap;gap:2px 10px;align-items:center;font-size:13px!important;letter-spacing:0!important;color:var(--ltx)!important;margin-top:auto!important}.rv small{color:var(--lmut)}.gb{margin-left:auto;font-size:11px;font-weight:700;color:#4285f4}
+.st{color:#f5b301;letter-spacing:2px;font-size:16px}.rsum{display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap}.rsum b{font-size:44px;letter-spacing:-2px}.rsum small{color:var(--lmut)}
+#reviews .btns{margin-top:22px}
+a.gb{text-decoration:none}</style></head><body>
 <script>
 /* =====================================================================
    EDIT HERE  -  CONFIG  (everything on the website is controlled below)
@@ -87,7 +95,7 @@ const CONFIG = {
   countryCode: "+63",            // used for call, text and saved contact
   email: "",                     // e.g. "hello@cjdental.com"
   address: "",                   // e.g. "Street, Town, Province"
-  maps: "",                      // Google Maps share link (if empty, the address is searched instead)
+  maps: "https://maps.app.goo.gl/rgdcReKZmWaf84qE7",                      // Google Maps share link (if empty, the address is searched instead)
   website: "",                   // clinic website, added to the saved contact
 
   /* ---------- 3. SOCIAL MEDIA ---------- */
@@ -114,7 +122,9 @@ const CONFIG = {
     { label: "Contact", target: "contact" },
     { label: "About", target: "about" },
     { label: "Services", target: "services" },
+    { label: "Doctors", target: "doctors" },
     { label: "Gallery", target: "results" },
+    { label: "Reviews", target: "reviews" },
     { label: "Follow", target: "follow" }
   ],
 
@@ -157,6 +167,7 @@ const CONFIG = {
     label: "SERVICES",
     title: "Dental care across disciplines.",
     hint: "Tap a service to see what it covers.",
+    callButton: "Call the clinic",      // button shown inside every opened service
     items: [
       { name: "Oral Prophylaxis", desc: "Professional cleaning for fresh, healthy teeth." },
       { name: "Fluoride", desc: "Strengthens enamel and protects against decay." },
@@ -174,6 +185,20 @@ const CONFIG = {
     ]
   },
 
+  /* ---------- 10b. CLINIC DOCTORS (slider) ---------- */
+  // Replace the sample names with your real doctors. photo: "" shows a placeholder avatar,
+  // or use "dr-name.jpg" / a full image link. Add or remove lines freely. show:false hides the section.
+  doctors: {
+    show: true,
+    label: "CLINIC DOCTORS",
+    title: "Meet our dentists.",
+    hint: "Swipe to meet the team.",
+    items: [
+      { name: "Dr. Full Name", role: "General Dentistry", photo: "" },
+      { name: "Dr. Full Name", role: "Orthodontics", photo: "" }
+    ]
+  },
+
   /* ---------- 11. GALLERY (image "" = built-in picture, or use "photo.jpg" / a link) ---------- */
   gallery: {
     label: "GALLERY",
@@ -183,6 +208,38 @@ const CONFIG = {
       { caption: "ORTHODONTICS", image: "" },
       { caption: "GENERAL DENTISTRY", image: "" },
       { caption: "TEETH WHITENING", image: "" }
+    ]
+  },
+
+  /* ---------- 11b. GOOGLE REVIEWS (from Google Business Profile / Google Maps) ---------- */
+  // Option A (simple): copy real reviews from your Google Maps listing into "reviews" below.
+  // Option B (automatic): fill placeId + apiKey (Google Places API) and the latest reviews load by themselves.
+  google: {
+    show: true,
+    label: "GOOGLE REVIEWS",
+    title: "What our patients say.",
+    rating: "",            // e.g. "4.9"  (auto-filled in option B)
+    totalReviews: "",      // e.g. "120"  (auto-filled in option B)
+    reviewsUrl: "https://maps.app.goo.gl/rgdcReKZmWaf84qE7",        // link to your Google Maps listing, opened by "See all reviews"
+    writeReviewUrl: "",    // e.g. "https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID"
+    placeId: "ChIJX5pggNXJlzMRCDp53aBKf9c",           // option B: your Google Place ID
+    apiKey: "",            // option B: Google Places API key (restrict it to your website address)
+    emptyText: "Read what our patients say about us on Google.",
+    seeAllLabel: "See all reviews on Google",
+    writeLabel: "Write a review",
+    // EASIEST WAY: paste one review per line using the format below (lines starting with # are ignored).
+    // Name | stars | date | review text | link to that review on Google (optional)
+    reviewsText: `
+# Example:  Maria S. | 5 | 2 weeks ago | Very gentle and caring dentist! | https://maps.app.goo.gl/xxxx
+# Your 5 review links are ready below. Fill in the name, stars, date and text, then delete the # at the start of each line:
+Mc Davis | 5 | a week ago | Service is excellent. Availing their services for about 7 years now and the service is exceptional. | https://maps.app.goo.gl/ySVMbouhyNoba4dL9
+# Name | 5 | date | review text | https://maps.app.goo.gl/MfiUwS4oJmA7qEPb8
+# Name | 5 | date | review text | https://maps.app.goo.gl/JHcjcTw1ZMVrobRWA
+# Name | 5 | date | review text | https://maps.app.goo.gl/Xbx9V2LmupdxgUuF6
+# Name | 5 | date | review text | https://maps.app.goo.gl/f2F5962719GGQZkaA
+`,
+    reviews: [
+      // { name: "Reviewer Name", rating: 5, text: "Paste the review text here.", date: "2 months ago" },
     ]
   },
 
@@ -228,6 +285,8 @@ const mess=C.messenger&&(/^https?:/.test(C.messenger)?C.messenger:"https://m.me/
 const LINKS={call:"tel:"+intl,sms:"sms:"+intl,email:C.email&&"mailto:"+C.email,messenger:mess,
  maps:C.maps||(C.address&&"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(C.businessName+" "+C.address)),
  facebook:C.facebook,instagram:C.instagram,tiktok:C.tiktok};
+LINKS.reviews=C.google.reviewsUrl||LINKS.maps;LINKS.writeReview=C.google.writeReviewUrl||(C.google.placeId&&"https://search.google.com/local/writereview?placeid="+C.google.placeId);
+C.google.reviews=(C.google.reviews||[]).concat((C.google.reviewsText||"").split("\n").map(l=>l.trim()).filter(l=>l&&l[0]!=="#").map(l=>{const q=l.split("|").map(x=>x.trim());return{name:q[0],rating:q[1],date:q[2],text:q[3],link:q[4]}}));
 const ICON={save:"👤",call:"📞",sms:"💬",email:"✉️",maps:"📍"};
 const SVG={facebook:'<path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.5V11H7v4h2.5v6h4v-6H16l.5-4h-3V9c0-.6.4-1 1-1z"/>',
 messenger:'<path d="M12 2C6.5 2 2 6.2 2 11.5c0 2.9 1.3 5.4 3.4 7.1V22l3.1-1.7c1 .3 2.4.5 3.5.5 5.5 0 10-4.2 10-9.5S17.5 2 12 2zm1 12.8l-2.5-2.7-4.9 2.7 5.4-5.7 2.6 2.7 4.8-2.7-5.4 5.7z"/>',
@@ -240,6 +299,13 @@ const lab=(l,t)=>`<div class="lab">${T(l)}</div>`;
 const H=C.hero,K=C.contact,A=C.about,S=C.services,G=C.gallery,F=C.follow;
 const rows=[[K.phoneLabel,C.phone],C.email&&[K.emailLabel,C.email],C.address&&[K.addressLabel,C.address],[K.servicesLabel,C.specialties]].filter(Boolean).map(r=>`<div class="row"><small>${T(r[0])}</small>${T(r[1])}</div>`).join("");
 const gal=G.items.map((g,i)=>`<figure><img src="${esc(g.image||IMG.gallery[i]||"")}" alt="${T(g.caption)}"><figcaption>${T(g.caption)}</figcaption></figure>`).join("");
+const D=C.doctors;
+const AV='<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.600 8 8z"/></svg>';
+const docHTML=D.show?`<section id="doctors" style="padding-top:0">${lab(D.label)}<h2>${T(D.title)}</h2><p class="lead">${T(D.hint)}</p><div class="sl docs">${D.items.map(d=>`<figure class="doc">${d.photo?`<img class="pic" src="${esc(d.photo)}" alt="${T(d.name)}">`:`<div class="pic">${AV}</div>`}<b>${T(d.name)}</b><small>${T(d.role)}</small></figure>`).join("")}</div></section>`:"";
+const stars=n=>{n=Math.max(0,Math.min(5,Math.round(+n||5)));return"★".repeat(n)+"☆".repeat(5-n)};
+const revHTML=g=>{const sum=(g.rating||g.totalReviews)?`<div class="rsum">${g.rating?`<b>${esc(g.rating)}</b><span class="st">${stars(g.rating)}</span>`:""}<small>${g.totalReviews?esc(g.totalReviews)+" reviews on Google":"Google rating"}</small></div>`:"";
+const cards=(g.reviews||[]).map(r=>`<figure class="rv"><div class="st">${stars(r.rating)}</div><p>${T(r.text)}</p><figcaption><b>${T(r.name)}</b><small>${T(r.date||"")}</small>${/^https?:/.test(r.link||"")?`<a class="gb" href="${esc(r.link)}" target="_blank" rel="noopener">Google ↗</a>`:`<span class="gb">Google</span>`}</figcaption></figure>`).join("");
+return sum+(cards?`<div class="sl rvs">${cards}</div>`:`<p class="lead">${T(g.emptyText)}</p>`)+`<div class="btns"><a class="cb" data-k="reviews">${T(g.seeAllLabel)}</a><a class="cb" data-k="writeReview">${T(g.writeLabel)}</a></div>`};
 $("#app").innerHTML=`
 <div class="hero" id="home"><img id="heroLogo" class="hl" alt="">${lab(H.eyebrow).replace("lab","eye")}
 <h1>${T(H.titleMain)}<span>${T(H.titleSub)}</span></h1><p>${T(H.text)}</p>
@@ -247,8 +313,10 @@ $("#app").innerHTML=`
 <div class="info">${H.facts.map(f=>`<div><small>${T(f.label)}</small><b>${T(f.value)}</b></div>`).join("")}</div></div>
 <section id="contact">${lab(K.label)}<h2>${T(K.title)}</h2><div class="card"><h3>${T(K.cardTitle)}</h3>${rows}<div class="qa">${K.buttons.map(qa).join("")}</div></div></section>
 <section id="about">${lab(A.label)}<h2>${T(A.title)}</h2><p class="lead">${T(A.text)}</p><div class="num">${A.stats.map(s=>`<div>${T(s.number)}<small>${T(s.label)}</small></div>`).join("")}</div></section>
-<section id="services" style="padding-top:0">${lab(S.label)}<h2>${T(S.title)}</h2><p class="lead" style="margin-bottom:22px">${T(S.hint)}</p><div class="accs">${S.items.map((s,i)=>`<div class="ac"><button class="ah"><i>${String(i+1).padStart(2,"0")}</i><b>${T(s.name)}</b><u>+</u></button><p>${T(s.desc)}</p></div>`).join("")}</div></section>
+<section id="services" style="padding-top:0">${lab(S.label)}<h2>${T(S.title)}</h2><p class="lead" style="margin-bottom:22px">${T(S.hint)}</p><div class="accs">${S.items.map((s,i)=>`<div class="ac"><button class="ah"><i>${String(i+1).padStart(2,"0")}</i><b>${T(s.name)}</b><u>+</u></button><div class="ab"><p>${T(s.desc)}</p><a class="cb" data-k="call">📞 ${T(S.callButton)}</a></div></div>`).join("")}</div></section>
+${docHTML}
 <section class="dark" id="results"><div class="in">${lab(G.label)}<h2>${T(G.title)}</h2><p class="lead">${T(G.hint)}</p><div class="sl">${gal}</div></div></section>
+${C.google.show?`<section id="reviews">${lab(C.google.label)}<h2>${T(C.google.title)}</h2><div id="reviewsBody">${revHTML(C.google)}</div></section>`:""}
 <section id="follow">${lab(F.label)}<h2>${T(F.title)}</h2><div class="socs">${F.buttons.map(soc).join("")}</div></section>
 <footer>${T(C.footerText)}</footer>`;
 $("#menu").innerHTML=C.menu.map(m=>`<a href="#${esc(m.target)}">${T(m.label)}</a>`).join("");
@@ -256,9 +324,10 @@ $("#brand").textContent=C.businessName.toUpperCase();
 $("#dock").innerHTML=C.dock.map((k,i)=>`<a data-k="${k}">${i===0&&k==="call"?"📞 "+BL("dockCall"):BL(k)}</a>`).join("");
 $("#splashImg").src=logo;$("#hLogo").src=logo;const hl=$("#heroLogo");if(hl)hl.src=logo;if(!C.showSplash)$("#splash").remove();
 const t=$("#toast");let tm;const toast=m=>{t.textContent=m;t.classList.add("on");clearTimeout(tm);tm=setTimeout(()=>t.classList.remove("on"),2200)};
-document.querySelectorAll("[data-k]").forEach(a=>{const u=LINKS[a.dataset.k];
+const wire=root=>root.querySelectorAll("[data-k]").forEach(a=>{const u=LINKS[a.dataset.k];
  if(u){a.href=u;if(/^http/.test(u)){a.target="_blank";a.rel="noopener"}}
- else if(C.hideEmptyButtons)a.remove();else a.addEventListener("click",e=>{e.preventDefault();toast("This link isn't set up yet")})});
+ else if(C.hideEmptyButtons)a.remove();else a.addEventListener("click",e=>{e.preventDefault();toast("This link isn't set up yet")})});wire(document);
+if(C.google.show&&C.google.placeId&&C.google.apiKey)fetch("https://places.googleapis.com/v1/places/"+encodeURIComponent(C.google.placeId),{headers:{"X-Goog-Api-Key":C.google.apiKey,"X-Goog-FieldMask":"rating,userRatingCount,reviews"}}).then(r=>r.ok?r.json():Promise.reject()).then(d=>{const g=Object.assign({},C.google,{rating:d.rating?String(d.rating):C.google.rating,totalReviews:d.userRatingCount?String(d.userRatingCount):C.google.totalReviews});if(d.reviews&&d.reviews.length)g.reviews=d.reviews.map(r=>({name:r.authorAttribution&&r.authorAttribution.displayName,rating:r.rating,text:(r.text&&r.text.text)||(r.originalText&&r.originalText.text)||"",date:r.relativePublishTimeDescription}));$("#reviewsBody").innerHTML=revHTML(g);wire($("#reviewsBody"))}).catch(()=>{});
 const m=$("#menu");$("#mb").onclick=()=>m.classList.toggle("on");m.querySelectorAll("a").forEach(a=>a.onclick=()=>m.classList.remove("on"));
 document.querySelectorAll(".ah").forEach(b=>b.onclick=()=>{const c=b.parentElement;c.classList.toggle("on");b.querySelector("u").textContent=c.classList.contains("on")?"−":"+"});
 const vcf=()=>["BEGIN:VCARD","VERSION:3.0","FN:"+C.businessName,"ORG:"+C.fullName,"TEL;TYPE=CELL,VOICE:"+intl,C.email&&"EMAIL:"+C.email,C.address&&"ADR;TYPE=WORK:;;"+C.address+";;;;",C.website&&"URL:"+C.website,"END:VCARD"].filter(Boolean).join("\r\n");
