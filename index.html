@@ -211,36 +211,20 @@ const CONFIG = {
     ]
   },
 
-  /* ---------- 11b. GOOGLE REVIEWS (from Google Business Profile / Google Maps) ---------- */
-  // Option A (simple): copy real reviews from your Google Maps listing into "reviews" below.
-  // Option B (automatic): fill placeId + apiKey (Google Places API) and the latest reviews load by themselves.
+  /* ---------- 11b. GOOGLE REVIEWS (Jotform website widget) ---------- */
+  // The reviews slider is loaded by your Jotform widget. From the embed code
+  //   <div id="JFWebsiteWidget-XXXX"></div> ... src="https://www.jotform.com/website-widgets/embed/XXXX"
+  // only the XXXX part (widgetId) is needed. show:false hides the whole section.
   google: {
     show: true,
     label: "GOOGLE REVIEWS",
     title: "What our patients say.",
-    rating: "",            // e.g. "4.9"  (auto-filled in option B)
-    totalReviews: "",      // e.g. "120"  (auto-filled in option B)
-    reviewsUrl: "https://maps.app.goo.gl/rgdcReKZmWaf84qE7",        // link to your Google Maps listing, opened by "See all reviews"
-    writeReviewUrl: "",    // e.g. "https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID"
-    placeId: "ChIJX5pggNXJlzMRCDp53aBKf9c",           // option B: your Google Place ID
-    apiKey: "",            // option B: Google Places API key (restrict it to your website address)
-    emptyText: "Read what our patients say about us on Google.",
+    widgetId: "01a10efacd4070008ae2ab91808e601cf226",
+    reviewsUrl: "https://maps.app.goo.gl/rgdcReKZmWaf84qE7",   // opened by "See all reviews on Google"
+    placeId: "ChIJX5pggNXJlzMRCDp53aBKf9c",                    // makes "Write a review" open the Google review form
+    writeReviewUrl: "",                                        // optional: use your own review link instead
     seeAllLabel: "See all reviews on Google",
-    writeLabel: "Write a review",
-    // EASIEST WAY: paste one review per line using the format below (lines starting with # are ignored).
-    // Name | stars | date | review text | link to that review on Google (optional)
-    reviewsText: `
-# Example:  Maria S. | 5 | 2 weeks ago | Very gentle and caring dentist! | https://maps.app.goo.gl/xxxx
-# Your 5 review links are ready below. Fill in the name, stars, date and text, then delete the # at the start of each line:
-Mc Davis | 5 | a week ago | Service is excellent. Availing their services for about 7 years now and the service is exceptional. | https://maps.app.goo.gl/ySVMbouhyNoba4dL9
-Jinky Espinas | 5 | 3 weeks ago | The clinic is clean and neat .  The staff and the dentist are kind and approachable I am very satisfied with their work👏🫶 | https://maps.app.goo.gl/Xbx9V2LmupdxgUuF6
-Helly Fortu | 5 | a month ago | I Highly recommend CJ DENTAL CLINIC for your dental needs.Super L❤️ve how they treat every patient needs and concern.L❤️ve the clean and aesthetic vibe of this place just feel free to visit guys❤️ | https://maps.app.goo.gl/MfiUwS4oJmA7qEPb8
-Hanna Mie Soroan | 5 | a month ago | I had a great experience at CJ Dental! The clinic was clean and the staff were friendly and welcoming. Highly recommended🫶❤️ | https://maps.app.goo.gl/JHcjcTw1ZMVrobRWA
-Ma.Eloisa Decierra | 5 | a month ago | If you want a beautiful smile😁. I highly recommend this dental clinic because the doctor is very kind, friendly, and approachable  for her patient's dental needs and concerns. Also the facilities are clean and safe. SUPERB⭐ | https://maps.app.goo.gl/f2F5962719GGQZkaA
-`,
-    reviews: [
-      // { name: "Reviewer Name", rating: 5, text: "Paste the review text here.", date: "2 months ago" },
-    ]
+    writeLabel: "Write a review"
   },
 
   /* ---------- 12. FOLLOW & MESSAGE US (last section) ---------- */
@@ -286,7 +270,6 @@ const LINKS={call:"tel:"+intl,sms:"sms:"+intl,email:C.email&&"mailto:"+C.email,m
  maps:C.maps||(C.address&&"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(C.businessName+" "+C.address)),
  facebook:C.facebook,instagram:C.instagram,tiktok:C.tiktok};
 LINKS.reviews=C.google.reviewsUrl||LINKS.maps;LINKS.writeReview=C.google.writeReviewUrl||(C.google.placeId&&"https://search.google.com/local/writereview?placeid="+C.google.placeId);
-C.google.reviews=(C.google.reviews||[]).concat((C.google.reviewsText||"").split("\n").map(l=>l.trim()).filter(l=>l&&l[0]!=="#").map(l=>{const q=l.split("|").map(x=>x.trim());return{name:q[0],rating:q[1],date:q[2],text:q[3],link:q[4]}}));
 const ICON={save:"👤",call:"📞",sms:"💬",email:"✉️",maps:"📍"};
 const SVG={facebook:'<path d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.5V11H7v4h2.5v6h4v-6H16l.5-4h-3V9c0-.6.4-1 1-1z"/>',
 messenger:'<path d="M12 2C6.5 2 2 6.2 2 11.5c0 2.9 1.3 5.4 3.4 7.1V22l3.1-1.7c1 .3 2.4.5 3.5.5 5.5 0 10-4.2 10-9.5S17.5 2 12 2zm1 12.8l-2.5-2.7-4.9 2.7 5.4-5.7 2.6 2.7 4.8-2.7-5.4 5.7z"/>',
@@ -302,10 +285,6 @@ const gal=G.items.map((g,i)=>`<figure><img src="${esc(g.image||IMG.gallery[i]||"
 const D=C.doctors;
 const AV='<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.600 8 8z"/></svg>';
 const docHTML=D.show?`<section id="doctors" style="padding-top:0">${lab(D.label)}<h2>${T(D.title)}</h2><p class="lead">${T(D.hint)}</p><div class="sl docs">${D.items.map(d=>`<figure class="doc">${d.photo?`<img class="pic" src="${esc(d.photo)}" alt="${T(d.name)}">`:`<div class="pic">${AV}</div>`}<b>${T(d.name)}</b><small>${T(d.role)}</small></figure>`).join("")}</div></section>`:"";
-const stars=n=>{n=Math.max(0,Math.min(5,Math.round(+n||5)));return"★".repeat(n)+"☆".repeat(5-n)};
-const revHTML=g=>{const sum=(g.rating||g.totalReviews)?`<div class="rsum">${g.rating?`<b>${esc(g.rating)}</b><span class="st">${stars(g.rating)}</span>`:""}<small>${g.totalReviews?esc(g.totalReviews)+" reviews on Google":"Google rating"}</small></div>`:"";
-const cards=(g.reviews||[]).map(r=>`<figure class="rv"><div class="st">${stars(r.rating)}</div><p>${T(r.text)}</p><figcaption><b>${T(r.name)}</b><small>${T(r.date||"")}</small>${/^https?:/.test(r.link||"")?`<a class="gb" href="${esc(r.link)}" target="_blank" rel="noopener">Google ↗</a>`:`<span class="gb">Google</span>`}</figcaption></figure>`).join("");
-return sum+(cards?`<div class="sl rvs">${cards}</div>`:`<p class="lead">${T(g.emptyText)}</p>`)+`<div class="btns"><a class="cb" data-k="reviews">${T(g.seeAllLabel)}</a><a class="cb" data-k="writeReview">${T(g.writeLabel)}</a></div>`};
 $("#app").innerHTML=`
 <div class="hero" id="home"><img id="heroLogo" class="hl" alt="">${lab(H.eyebrow).replace("lab","eye")}
 <h1>${T(H.titleMain)}<span>${T(H.titleSub)}</span></h1><p>${T(H.text)}</p>
@@ -316,7 +295,7 @@ $("#app").innerHTML=`
 <section id="services" style="padding-top:0">${lab(S.label)}<h2>${T(S.title)}</h2><p class="lead" style="margin-bottom:22px">${T(S.hint)}</p><div class="accs">${S.items.map((s,i)=>`<div class="ac"><button class="ah"><i>${String(i+1).padStart(2,"0")}</i><b>${T(s.name)}</b><u>+</u></button><div class="ab"><p>${T(s.desc)}</p><a class="cb" data-k="call">📞 ${T(S.callButton)}</a></div></div>`).join("")}</div></section>
 ${docHTML}
 <section class="dark" id="results"><div class="in">${lab(G.label)}<h2>${T(G.title)}</h2><p class="lead">${T(G.hint)}</p><div class="sl">${gal}</div></div></section>
-${C.google.show?`<section id="reviews">${lab(C.google.label)}<h2>${T(C.google.title)}</h2><div id="reviewsBody">${revHTML(C.google)}</div></section>`:""}
+${C.google.show?`<section id="reviews">${lab(C.google.label)}<h2>${T(C.google.title)}</h2><div id="reviewsBody">${C.google.widgetId?`<div id="JFWebsiteWidget-${esc(C.google.widgetId)}"></div>`:""}<div class="btns"><a class="cb" data-k="reviews">${T(C.google.seeAllLabel)}</a><a class="cb" data-k="writeReview">${T(C.google.writeLabel)}</a></div></div></section>`:""}
 <section id="follow">${lab(F.label)}<h2>${T(F.title)}</h2><div class="socs">${F.buttons.map(soc).join("")}</div></section>
 <footer>${T(C.footerText)}</footer>`;
 $("#menu").innerHTML=C.menu.map(m=>`<a href="#${esc(m.target)}">${T(m.label)}</a>`).join("");
@@ -327,7 +306,7 @@ const t=$("#toast");let tm;const toast=m=>{t.textContent=m;t.classList.add("on")
 const wire=root=>root.querySelectorAll("[data-k]").forEach(a=>{const u=LINKS[a.dataset.k];
  if(u){a.href=u;if(/^http/.test(u)){a.target="_blank";a.rel="noopener"}}
  else if(C.hideEmptyButtons)a.remove();else a.addEventListener("click",e=>{e.preventDefault();toast("This link isn't set up yet")})});wire(document);
-if(C.google.show&&C.google.placeId&&C.google.apiKey)fetch("https://places.googleapis.com/v1/places/"+encodeURIComponent(C.google.placeId),{headers:{"X-Goog-Api-Key":C.google.apiKey,"X-Goog-FieldMask":"rating,userRatingCount,reviews"}}).then(r=>r.ok?r.json():Promise.reject()).then(d=>{const g=Object.assign({},C.google,{rating:d.rating?String(d.rating):C.google.rating,totalReviews:d.userRatingCount?String(d.userRatingCount):C.google.totalReviews});if(d.reviews&&d.reviews.length)g.reviews=d.reviews.map(r=>({name:r.authorAttribution&&r.authorAttribution.displayName,rating:r.rating,text:(r.text&&r.text.text)||(r.originalText&&r.originalText.text)||"",date:r.relativePublishTimeDescription}));$("#reviewsBody").innerHTML=revHTML(g);wire($("#reviewsBody"))}).catch(()=>{});
+if(C.google.show&&C.google.widgetId){const js=document.createElement("script");js.src="https://www.jotform.com/website-widgets/embed/"+C.google.widgetId;js.defer=true;document.body.appendChild(js)}
 const m=$("#menu");$("#mb").onclick=()=>m.classList.toggle("on");m.querySelectorAll("a").forEach(a=>a.onclick=()=>m.classList.remove("on"));
 document.querySelectorAll(".ah").forEach(b=>b.onclick=()=>{const c=b.parentElement;c.classList.toggle("on");b.querySelector("u").textContent=c.classList.contains("on")?"−":"+"});
 const vcf=()=>["BEGIN:VCARD","VERSION:3.0","FN:"+C.businessName,"ORG:"+C.fullName,"TEL;TYPE=CELL,VOICE:"+intl,C.email&&"EMAIL:"+C.email,C.address&&"ADR;TYPE=WORK:;;"+C.address+";;;;",C.website&&"URL:"+C.website,"END:VCARD"].filter(Boolean).join("\r\n");
