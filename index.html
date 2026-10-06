@@ -378,7 +378,7 @@ const onS=()=>{const y=scrollY,mx=document.documentElement.scrollHeight-innerHei
  if(!mn.classList.contains("on")){if(y>ly+4&&y>140)hd.classList.add("hid");else if(y<ly-4||y<=140)hd.classList.remove("hid")}ly=y;tk=false};
 addEventListener("scroll",()=>{if(!tk){tk=true;requestAnimationFrame(onS)}},{passive:true});onS();
 const dock=document.getElementById("dock"),vis=new Set();
-if(IO){const d2=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target.id):vis.delete(e.target.id));dock.classList.toggle("hide",vis.size>0)},{threshold:.35});["contact","follow"].forEach(id=>{const el=document.getElementById(id);el&&d2.observe(el)})}
+if(IO){const d2=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target.id):vis.delete(e.target.id));dock.classList.toggle("hide",vis.size>0)},{threshold:.35});["home","contact","follow"].forEach(id=>{const el=document.getElementById(id);el&&d2.observe(el)})}
 })();
 </script>
 </body></html>
