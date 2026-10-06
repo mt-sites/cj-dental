@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0a0a0a"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><title>CJ Dental</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><meta name="theme-color" content="#0a0a0a"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"><script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><title>CJ Dental</title>
 <style>
 :root{--gold:#c9a64e;--lt:#f6e99a;--ink:#0a0a0a;--lbg:#f6f4ee;--ltx:#111;--lmut:#555;--lcard:#fff;--line:#ddd}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--lbg:#141414;--ltx:#f1f1f1;--lmut:#aaa;--lcard:#1c1c1c;--line:#333}}
@@ -121,6 +121,13 @@ section{padding:clamp(52px,13vw,92px) clamp(18px,5.5vw,28px)}
 .sl{-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 @media(max-width:699px){.sl{margin-inline:calc(-1 * clamp(18px,5.5vw,28px));padding-inline:clamp(18px,5.5vw,28px);scroll-padding-inline:clamp(18px,5.5vw,28px);scrollbar-width:none;gap:12px}.sl::-webkit-scrollbar{display:none}}
 @media(prefers-reduced-motion:reduce){.hero::before,.dock,.dock a:first-child{animation:none!important}.ac .ab,.abi{transition:none}}
+/* ===== 3D effects ===== */
+.fx3d{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.hero>*:not(.fx3d){position:relative;z-index:1}
+.card{position:relative;transform-style:preserve-3d}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.2),transparent 55%);opacity:0;transition:opacity .3s}
+.card:hover::after{opacity:1}
+.sl figure>:first-child{transition:transform .25s ease-out;will-change:transform}
 </style></head><body>
 <script>
 /* =====================================================================
@@ -154,6 +161,7 @@ const CONFIG = {
 
   /* ---------- 4. LOOK ---------- */
   colors: { gold: "#c9a64e", goldLight: "#f6e99a", dark: "#0a0a0a" },
+  effects3D: true,                // 3D tooth, card tilt and gallery depth (true / false)
   showSplash: true,              // loading animation with the logo (true / false)
   hideEmptyButtons: false,       // true = hide buttons whose link is empty; false = show "not set up yet"
 
@@ -379,6 +387,84 @@ const onS=()=>{const y=scrollY,mx=document.documentElement.scrollHeight-innerHei
 addEventListener("scroll",()=>{if(!tk){tk=true;requestAnimationFrame(onS)}},{passive:true});onS();
 const dock=document.getElementById("dock"),vis=new Set();
 if(IO){const d2=new IntersectionObserver(es=>{es.forEach(e=>e.isIntersecting?vis.add(e.target.id):vis.delete(e.target.id));dock.classList.toggle("hide",vis.size>0)},{threshold:.35});["home","contact","follow"].forEach(id=>{const el=document.getElementById(id);el&&d2.observe(el)})}
+})();
+</script>
+<script>
+/* ===== 3D EFFECTS - hero tooth, card tilt, gallery depth (turn off with effects3D:false in CONFIG) ===== */
+(()=>{
+if(CONFIG.effects3D===false)return;
+const rm=matchMedia("(prefers-reduced-motion: reduce)").matches,fine=matchMedia("(hover:hover) and (pointer:fine)").matches;
+
+function tooth(){
+ const hero=document.getElementById("home");if(!hero||!window.THREE)return;
+ const T=THREE,cv=document.createElement("canvas");cv.className="fx3d";cv.setAttribute("aria-hidden","true");hero.prepend(cv);
+ let rd;try{rd=new T.WebGLRenderer({canvas:cv,alpha:true,antialias:true})}catch(e){cv.remove();return}
+ const small=innerWidth<700,seg=small?56:96;
+ rd.setPixelRatio(Math.min(devicePixelRatio||1,small?1.5:2));
+ const sc=new T.Scene(),cam=new T.PerspectiveCamera(32,1,.1,50);cam.position.set(0,0,9);
+ const gold=new T.Color(getComputedStyle(document.documentElement).getPropertyValue("--gold").trim()||"#c9a64e");
+ sc.add(new T.HemisphereLight(0xfff6e0,0x2a210f,.95));
+ const key=new T.DirectionalLight(0xffffff,1.15);key.position.set(3,5,6);sc.add(key);
+ const rim=new T.PointLight(gold,2.4,30);rim.position.set(-5,2,-3);sc.add(rim);
+ const rim2=new T.PointLight(0x9d7bff,1.2,30);rim2.position.set(5,-3,-2);sc.add(rim2);
+ const g=new T.Group(),m=new T.Group(),mat=new T.MeshPhysicalMaterial({color:0xf8f4ea,roughness:.28,clearcoat:1,clearcoatRoughness:.12});
+ const cg=new T.SphereGeometry(1,seg,seg*.75|0),p=cg.attributes.position;
+ for(let i=0;i<p.count;i++){const x=p.getX(i),y=p.getY(i),z=p.getZ(i),r=Math.hypot(x,z),a=Math.atan2(z,x),b=.5+.5*Math.cos(4*a);
+  const Y=y>0?y*.8+.35*b*r*Math.min(1,y*4)-.3*Math.pow(y,6):y*.7,k=1+.18*Math.min(0,y);
+  p.setXYZ(i,x*1.1*k,Y,z*.95*k)}
+ cg.computeVertexNormals();m.add(new T.Mesh(cg,mat));
+ [-1,1].forEach(s=>{const rg=new T.CylinderGeometry(.36,.05,1.7,seg>>1,28),q=rg.attributes.position;
+  for(let i=0;i<q.count;i++){const t=(.85-q.getY(i))/1.7;q.setX(i,q.getX(i)+s*(.4+.3*t*t));q.setY(i,q.getY(i)-1.15)}
+  rg.computeVertexNormals();m.add(new T.Mesh(rg,mat))});
+ m.position.y=.6;g.add(m);
+ const ring=new T.Mesh(new T.TorusGeometry(2.1,.012,8,160),new T.MeshBasicMaterial({color:gold,transparent:true,opacity:.8}));ring.rotation.x=1.25;
+ const ring2=new T.Mesh(new T.TorusGeometry(2.6,.008,8,160),new T.MeshBasicMaterial({color:gold,transparent:true,opacity:.35}));ring2.rotation.set(1.9,.4,0);
+ g.add(ring,ring2);
+ const n=small?50:100,pa=new Float32Array(n*3);
+ for(let i=0;i<n;i++){const r=2.3+Math.random()*1.4,u=Math.random()*6.283,v=Math.acos(2*Math.random()-1);pa.set([r*Math.sin(v)*Math.cos(u),r*Math.cos(v),r*Math.sin(v)*Math.sin(u)],i*3)}
+ const pg=new T.BufferGeometry();pg.setAttribute("position",new T.BufferAttribute(pa,3));
+ const c2=document.createElement("canvas");c2.width=c2.height=64;const x2=c2.getContext("2d"),gr=x2.createRadialGradient(32,32,0,32,32,32);gr.addColorStop(0,"#fff");gr.addColorStop(1,"rgba(255,255,255,0)");x2.fillStyle=gr;x2.fillRect(0,0,64,64);
+ const pts=new T.Points(pg,new T.PointsMaterial({map:new T.CanvasTexture(c2),color:gold,size:.11,transparent:true,depthWrite:false,blending:T.AdditiveBlending}));
+ g.add(pts);sc.add(g);
+ let X=0,Y=0,S=1,mx=0,my=0,tx=0,ty=0,vis=true,raf=0;const t0=performance.now(),born=t0+(CONFIG.showSplash?1700:200);
+ const frame=now=>{raf=0;if(!vis||document.hidden)return;
+  const t=(now-t0)/1000,e=Math.min(1,Math.max(0,(now-born)/1400)),ease=1-Math.pow(1-e,3),sy=Math.min(1,scrollY/innerHeight);
+  tx+=(mx-tx)*.05;ty+=(my-ty)*.05;
+  g.rotation.set(ty*.25+.08,(rm?.5:t*.45)+tx*.6+sy*2.5,-.12);
+  m.position.y=.6+(rm?0:Math.sin(t*1.2)*.08);
+  g.scale.setScalar(S*ease*(1-sy*.25));g.position.set(X,Y+sy*.8,0);
+  ring.rotation.z=t*.3;ring2.rotation.y=.4+t*.2;pts.rotation.y=-t*.06;
+  rd.render(sc,cam);if(!rm)raf=requestAnimationFrame(frame)};
+ const kick=()=>{if(!raf)raf=requestAnimationFrame(frame)};
+ const fit=()=>{const w=hero.clientWidth,h=hero.clientHeight;rd.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();
+  const hh=2.58,hw=hh*w/h;
+  if(w>=900){S=.85;X=hw*.52;Y=0}else if(w>=700){S=.6;X=hw*.5;Y=.2}else{S=.4;X=hw*.3;Y=hh*.55}
+  kick()};
+ if(!rm)addEventListener("pointermove",e=>{mx=e.clientX/innerWidth*2-1;my=e.clientY/innerHeight*2-1},{passive:true});
+ new IntersectionObserver(([e])=>{vis=e.isIntersecting;if(vis)kick()}).observe(hero);
+ document.addEventListener("visibilitychange",kick);
+ new ResizeObserver(fit).observe(hero);fit();
+}
+
+function tilt(){
+ if(!fine||rm)return;
+ document.querySelectorAll(".card,.sl figure").forEach(el=>{
+  el.addEventListener("pointermove",e=>{if(el.classList.contains("rvl"))return;
+   const b=el.getBoundingClientRect(),x=(e.clientX-b.left)/b.width,y=(e.clientY-b.top)/b.height;
+   el.style.transition="transform .12s linear";el.style.transform=`perspective(900px) rotateX(${(.5-y)*7}deg) rotateY(${(x-.5)*9}deg)`;
+   el.style.setProperty("--gx",x*100+"%");el.style.setProperty("--gy",y*100+"%")});
+  el.addEventListener("pointerleave",()=>{el.style.transition="transform .6s cubic-bezier(.2,.7,.2,1)";el.style.transform=""})})}
+
+function flow(){
+ if(rm)return;
+ document.querySelectorAll(".sl").forEach(sl=>{let f=0;const upd=()=>{f=0;const it=[...sl.children].map(c=>c.firstElementChild).filter(Boolean);
+  if(sl.scrollWidth<=sl.clientWidth+4){it.forEach(el=>el.style.transform="");return}
+  const b=sl.getBoundingClientRect(),c=b.left+b.width/2;
+  it.forEach(el=>{const r=el.getBoundingClientRect(),d=Math.max(-1,Math.min(1,(r.left+r.width/2-c)/b.width));
+   el.style.transform=`perspective(800px) rotateY(${-d*22}deg) scale(${1-Math.abs(d)*.08})`})};
+  sl.addEventListener("scroll",()=>{f||(f=requestAnimationFrame(upd))},{passive:true});addEventListener("resize",upd);upd()})}
+
+addEventListener("DOMContentLoaded",()=>{tooth();tilt();flow()});
 })();
 </script>
 </body></html>
