@@ -254,14 +254,14 @@ const CONFIG = {
     ]
   },
 
-  /* ---------- 11. LATEST UPDATES (auto-synced social feed from RSS.app; replaces the old gallery) ---------- */
-  // Paste only the widget id from your RSS.app embed: <rssapp-carousel id="XXXX"> . show:false hides the section.
+  /* ---------- 11. LATEST UPDATES (auto-synced Facebook page posts from SociableKit; replaces the old gallery) ---------- */
+  // Paste only the number from your SociableKit embed: <div class="sk-ww-facebook-page-posts" data-embed-id="XXXX"> . show:false hides the section.
   feed: {
     show: true,
     label: "LATEST UPDATES",
     title: "See what's new.",
     hint: "",
-    widgetId: "y6VBsX6WCnGIDXqe"
+    widgetId: "25727517"
   },
 
   /* ---------- 11b. GOOGLE REVIEWS (Jotform website widget) ---------- */
@@ -346,7 +346,7 @@ $("#app").innerHTML=`
 <section id="about">${lab(A.label)}<h2>${T(A.title)}</h2><p class="lead">${T(A.text)}</p><div class="num">${A.stats.map(s=>`<div>${T(s.number)}<small>${T(s.label)}</small></div>`).join("")}</div></section>
 <section id="services" style="padding-top:0">${lab(S.label)}<h2>${T(S.title)}</h2><p class="lead" style="margin-bottom:22px">${T(S.hint)}</p><div class="accs">${S.items.map((s,i)=>`<div class="ac"><button class="ah"><i>${String(i+1).padStart(2,"0")}</i><b>${T(s.name)}</b><u>+</u></button><div class="ab"><div class="abi"><p>${T(s.desc)}</p><a class="cb" data-k="call">📞 ${T(S.callButton)}</a></div></div></div>`).join("")}</div></section>
 ${docHTML}
-${FD.show!==false&&FD.widgetId?`<section class="dark" id="results"><div class="in">${lab(FD.label)}<h2>${T(FD.title)}</h2>${FD.hint?`<p class="lead">${T(FD.hint)}</p>`:""}<div class="feedbox"><rssapp-carousel id="${esc(FD.widgetId)}"></rssapp-carousel></div></div></section>`:""}
+${FD.show!==false&&FD.widgetId?`<section class="dark" id="results"><div class="in">${lab(FD.label)}<h2>${T(FD.title)}</h2>${FD.hint?`<p class="lead">${T(FD.hint)}</p>`:""}<div class="feedbox"><div class="sk-ww-facebook-page-posts" data-embed-id="${esc(FD.widgetId)}"></div></div></div></section>`:""}
 ${C.google.show?`<section id="reviews">${lab(C.google.label)}<h2>${T(C.google.title)}</h2><div id="reviewsBody">${C.google.widgetId?`<div id="JFWebsiteWidget-${esc(C.google.widgetId)}"></div>`:""}<div class="btns"><a class="cb" data-k="reviews">${T(C.google.seeAllLabel)}</a><a class="cb" data-k="writeReview">${T(C.google.writeLabel)}</a></div></div></section>`:""}
 <section id="follow">${lab(F.label)}<h2>${T(F.title)}</h2><div class="socs">${F.buttons.map(soc).join("")}</div></section>
 <footer>${T(C.footerText)}</footer>`;
@@ -359,7 +359,7 @@ const wire=root=>root.querySelectorAll("[data-k]").forEach(a=>{const u=LINKS[a.d
  if(u){a.href=u;if(/^http/.test(u)){a.target="_blank";a.rel="noopener"}}
  else if(C.hideEmptyButtons)a.remove();else a.addEventListener("click",e=>{e.preventDefault();toast("This link isn't set up yet")})});wire(document);
 if(C.google.show&&C.google.widgetId){const js=document.createElement("script");js.src="https://www.jotform.com/website-widgets/embed/"+C.google.widgetId;js.defer=true;document.body.appendChild(js)}
-if(FD.show!==false&&FD.widgetId){const fs2=document.createElement("script");fs2.src="https://widget.rss.app/v1/carousel.js";fs2.async=true;document.body.appendChild(fs2)}
+if(FD.show!==false&&FD.widgetId){const fs2=document.createElement("script");fs2.src="https://widgets.sociablekit.com/facebook-page-posts/widget.js";fs2.defer=true;document.body.appendChild(fs2)}
 const m=$("#menu"),mb=$("#mb");const setMenu=o=>{m.classList.toggle("on",o);mb.textContent=o?"✕":"☰";mb.setAttribute("aria-expanded",o);document.body.style.overflow=o?"hidden":""};mb.onclick=()=>setMenu(!m.classList.contains("on"));m.querySelectorAll("a").forEach(a=>a.onclick=()=>setMenu(false));
 document.querySelectorAll(".ah").forEach(b=>b.onclick=()=>{const c=b.parentElement;c.classList.toggle("on");b.setAttribute("aria-expanded",c.classList.contains("on"))});
 const vcf=()=>["BEGIN:VCARD","VERSION:3.0","FN:"+C.businessName,"ORG:"+C.fullName,"TEL;TYPE=CELL,VOICE:"+intl,C.email&&"EMAIL:"+C.email,C.address&&"ADR;TYPE=WORK:;;"+C.address+";;;;",C.website&&"URL:"+C.website,"END:VCARD"].filter(Boolean).join("\r\n");
